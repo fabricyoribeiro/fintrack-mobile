@@ -35,10 +35,6 @@ export function Home() {
           </Text>
           <View>
             <LoginButton onPress={() => navigation.navigate('finance')} />
-
-            {/* <TouchableOpacity onPress={() => navigation.navigate('finance')}>
-            <Text>dd</Text>
-          </TouchableOpacity> */}
           </View>
         </View>
       </LinearGradient>

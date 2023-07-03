@@ -4,10 +4,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 interface  LoginButtonProps extends TouchableOpacityProps{}
 
-export function LoginButton({...rest}:LoginButtonProps) {
+export function LoginButton({...props}:LoginButtonProps) {
   return (
     <View className='rounded-lg overflow-hidden'>
-      <TouchableOpacity {...rest}>
+      <TouchableOpacity {...props}>
         <LinearGradient
           colors={['#4A4CE1', '#0E8BB6']}
           start={{ x: 0, y: 0 }}

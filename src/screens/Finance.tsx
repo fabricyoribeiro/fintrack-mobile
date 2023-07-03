@@ -2,10 +2,19 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Balance } from '../components/Balance'
-import { NewButton } from '../components/NewButton'
 import { TableRow } from '../components/TableRow'
+import { Form } from '../components/Form'
+import { Feather } from '@expo/vector-icons'
+
+import React, { useState } from 'react'
 
 export function Finance() {
+  const [showForm, setShowForm] = useState(false)
+
+  function handleShowForm(){
+    setShowForm(false)
+  }
+
   return (
     <SafeAreaView className="">
       <View
@@ -34,16 +43,26 @@ export function Finance() {
           <Balance positive />
         </View>
 
-        <View className='rounded-xl overflow-hidden border border-gray-500 mt-8'>
-          <TableRow />
-          <TableRow />
-          <TableRow />
+        {showForm ? (
+          <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
+            <Form showMore={handleShowForm} />
+          </View>
+        ) : (
+          <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
+            <TableRow />
+          </View>
+        )}
 
-        </View>
-
-        <View className="absolute top-[76vh] left-[77vw]">
-          <NewButton />
-        </View>
+        <TouchableOpacity
+          className="absolute top-[76vh] left-[77vw]"
+          onPress={() => {
+            setShowForm(true)
+          }}
+        >
+          <View className="bg-blue-600 flex-0 self-start p-3 rounded-full">
+            <Feather name="plus" size={36} color="white" />
+          </View>
+        </TouchableOpacity>
       </LinearGradient>
     </SafeAreaView>
   )

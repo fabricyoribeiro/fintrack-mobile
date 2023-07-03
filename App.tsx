@@ -1,4 +1,4 @@
-import {View, Text, StatusBar, SafeAreaView } from 'react-native'
+import {StatusBar } from 'react-native'
 
 import {
   Nunito_300Light,
@@ -10,9 +10,7 @@ import {
 } from '@expo-google-fonts/nunito'
 import { useFonts } from 'expo-font'
 import Loading from './src/components/Loading'
-import { Home } from './src/screens/Home'
 import { Routes } from './src/routes'
-import { NavigationContainer } from '@react-navigation/native'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
