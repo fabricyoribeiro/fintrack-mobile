@@ -9,7 +9,7 @@ interface Props {
 export function Balance(props: Props) {
   return (
     <View
-      className={clsx('flex flex-row justify-center gap-2 py-3 pr-2 w-64 rounded-xl ', {
+      className={clsx('flex flex-row justify-center flex-0 self-start gap-2 py-3 px-2 rounded-xl ', {
         ['bg-green-700']: props.positive,
         ['bg-red-700']: !props.positive
       })}
