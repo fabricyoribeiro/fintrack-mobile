@@ -1,19 +1,39 @@
-import { View, Text,SafeAreaView, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { LoginButton } from '../components/LoginButton'
 import { Image } from 'expo-image'
 import { useNavigation } from '@react-navigation/native'
+import useTransaction from '../hooks/useTransaction'
+import { TransactionType } from '../dtos/TransactionType'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function Home() {
-  const navigation: any = useNavigation()
+  const { getdByMonth, save } = useTransaction()
+
+  async function teste() {
+    const testee = await getdByMonth('22')
+    console.log(testee)
+  }
+  async function saveteste() {
+    save({
+      id: 'hhhhh',
+      description: 'string',
+      value: 1,
+      date: '22/22/2020',
+      type: TransactionType.DESPESA
+    })
+  }
+  function clear(){
+    AsyncStorage.clear()
+  }
 
   return (
-    <SafeAreaView className='flex-1'>
+    <SafeAreaView className="flex-1">
       <LinearGradient
         colors={['#16161866', '#000']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        className='flex-1'
+        className="flex-1"
       >
         <View
           className={`
@@ -34,11 +54,13 @@ export function Home() {
             Organize seu dinheiro de forma inteligente!
           </Text>
           <View>
-            <LoginButton onPress={() => navigation.navigate('finance')} />
+            {/* <LoginButton onPress={() => navigation.navigate('finance')} /> */}
+            <LoginButton onPress={teste} />
+            <LoginButton onPress={saveteste} />
+            <LoginButton onPress={clear} />
           </View>
         </View>
       </LinearGradient>
     </SafeAreaView>
   )
 }
-
