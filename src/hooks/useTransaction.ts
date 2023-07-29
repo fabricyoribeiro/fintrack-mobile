@@ -43,9 +43,28 @@ export default function useTransaction(){
 
   }
 
+  async function update(transaction: Transaction){
+    const transactions: Transaction[]  = await getAll()
+
+    // const item = transactions.some(item => item.id === transaction.id)
+    const newArray = transactions.map(item => {
+      if(item.id === transaction.id){
+        return transaction
+      }else{
+        return item
+      }
+    })
+
+    await AsyncStorage.setItem('@transactions', JSON.stringify(newArray))
+
+
+  }
+
   async function getAll(): Promise<[]>{
-    const transations  = await AsyncStorage.getItem('@transactions')
-    return transations ? JSON.parse(transations) : [] 
+    const transactions:any  = await AsyncStorage.getItem('@transactions')
+    console.log(transactions)
+    const transactionsParsed = JSON.parse(transactions)
+    return transactionsParsed || []
   }
 
   async function getdByMonth(month: string){
@@ -71,6 +90,7 @@ export default function useTransaction(){
 
   return {
     save,
+    update,
     getAll,
     getdByMonth,
     removeById

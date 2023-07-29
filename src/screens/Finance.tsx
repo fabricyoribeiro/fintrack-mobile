@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  FlatList
+} from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Balance } from '../components/Balance'
@@ -6,12 +12,42 @@ import { TableRow } from '../components/TableRow'
 import { Form } from '../components/Form'
 import { Feather } from '@expo/vector-icons'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import useTransaction from '../hooks/useTransaction'
+import { useIsFocused } from '@react-navigation/native'
 
 export function Finance() {
   const [showForm, setShowForm] = useState(false)
+  const [stateTrasactions, setStateTrasactions] = useState()
 
-  function handleShowForm(){
+  const { getAll } = useTransaction()
+
+  // const transactions: any = getAll()
+
+  // setStateTrasactions(transactions)
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    let isActive = true
+
+    async function getReceipes() {
+      const result: any = await getAll()
+      if (isActive) {
+        setStateTrasactions(result)
+      }
+    }
+
+    if (isActive) {
+      getReceipes()
+    }
+
+    return () => {
+      isActive = false
+    }
+  }, [isFocused, showForm])
+
+  function handleShowForm() {
     setShowForm(false)
   }
 
@@ -49,7 +85,12 @@ export function Finance() {
           </View>
         ) : (
           <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
-            <TableRow />
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={stateTrasactions}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => <TableRow {...item} />}
+            />
           </View>
         )}
 

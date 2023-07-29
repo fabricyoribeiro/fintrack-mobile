@@ -6,8 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 import useTransaction from '../hooks/useTransaction'
 import { TransactionType } from '../dtos/TransactionType'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Id from '../utils/Id'
 
 export function Home() {
+  const navigation: any = useNavigation()
   const { getdByMonth, save } = useTransaction()
 
   async function teste() {
@@ -16,10 +18,10 @@ export function Home() {
   }
   async function saveteste() {
     save({
-      id: 'hhhhh',
+      id: Id.New(),
       description: 'string',
       value: 1,
-      date: '22/22/2020',
+      date: '22/10/2020',
       type: TransactionType.DESPESA
     })
   }
@@ -54,7 +56,7 @@ export function Home() {
             Organize seu dinheiro de forma inteligente!
           </Text>
           <View>
-            {/* <LoginButton onPress={() => navigation.navigate('finance')} /> */}
+            <LoginButton onPress={() => navigation.navigate('finance')} />
             <LoginButton onPress={teste} />
             <LoginButton onPress={saveteste} />
             <LoginButton onPress={clear} />
