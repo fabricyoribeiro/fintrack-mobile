@@ -1,9 +1,3 @@
-//salvar
-//atualizar
-//excluir
-//buscar por mes
-//buscar por id
-
 import { useState } from "react";
 import Transaction from "../dtos/Transaction";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,12 +24,6 @@ export default function useTransaction(){
 
   async function save(transaction: Transaction){
     const transactions: Transaction[]  = await getAll()
-    // if(transactions.length === 0) {
-    //   transactions.push(transaction)
-      
-    //   await AsyncStorage.setItem('@transations', JSON.stringify(transactions))
-    // }
-    
     transactions.push(transaction)
     await AsyncStorage.setItem('@transactions', JSON.stringify(transactions))
 
@@ -45,8 +33,6 @@ export default function useTransaction(){
 
   async function update(transaction: Transaction){
     const transactions: Transaction[]  = await getAll()
-
-    // const item = transactions.some(item => item.id === transaction.id)
     const newArray = transactions.map(item => {
       if(item.id === transaction.id){
         return transaction
@@ -56,8 +42,6 @@ export default function useTransaction(){
     })
 
     await AsyncStorage.setItem('@transactions', JSON.stringify(newArray))
-
-
   }
 
   async function getAll(): Promise<[]>{

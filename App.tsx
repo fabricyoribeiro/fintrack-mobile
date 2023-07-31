@@ -11,8 +11,10 @@ import {
 import { useFonts } from 'expo-font'
 import Loading from './src/components/Loading'
 import { Routes } from './src/routes'
+import { useNavigation } from '@react-navigation/native'
 
 export default function App() {
+
   const [fontsLoaded] = useFonts({
     Nunito_300Light,
     Nunito_400Regular,
@@ -24,6 +26,7 @@ export default function App() {
 
   if(!fontsLoaded){
     return (<Loading />)
+    
   }
 
   return (

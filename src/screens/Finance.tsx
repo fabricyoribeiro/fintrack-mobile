@@ -20,18 +20,16 @@ export function Finance() {
   const [showForm, setShowForm] = useState(false)
   const [stateTrasactions, setStateTrasactions] = useState()
 
+  const [count, setCount] = useState(0)
+
   const { getAll } = useTransaction()
-
-  // const transactions: any = getAll()
-
-  // setStateTrasactions(transactions)
 
   const isFocused = useIsFocused()
 
   useEffect(() => {
     let isActive = true
 
-    async function getReceipes() {
+    async function getTransactions() {
       const result: any = await getAll()
       if (isActive) {
         setStateTrasactions(result)
@@ -39,16 +37,20 @@ export function Finance() {
     }
 
     if (isActive) {
-      getReceipes()
+      getTransactions()
     }
 
     return () => {
       isActive = false
     }
-  }, [isFocused, showForm])
+  }, [isFocused, showForm, count])
 
   function handleShowForm() {
     setShowForm(false)
+  }
+
+  function reload(){
+    setCount(count+1)
   }
 
   return (
@@ -84,13 +86,26 @@ export function Finance() {
             <Form showMore={handleShowForm} />
           </View>
         ) : (
-          <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={stateTrasactions}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => <TableRow {...item} />}
-            />
+          <View>
+            <View className="flex flex-row items-center gap-5 mx-auto mt-4 pr-5 ">
+              <TouchableOpacity className="">
+                <Feather name="chevron-left" color="white" size={20} />
+              </TouchableOpacity>
+              <Text className="text-white text-xl">Janeiro de 2023</Text>
+              <TouchableOpacity>
+                <Feather name="chevron-right" color="white" size={20} />
+              </TouchableOpacity>
+            </View>
+            <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={stateTrasactions}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                  <TableRow reloadList={reload} {...item} />
+                )}
+              />
+            </View>
           </View>
         )}
 

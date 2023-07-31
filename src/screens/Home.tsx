@@ -12,19 +12,19 @@ export function Home() {
   const navigation: any = useNavigation()
   const { getdByMonth, save } = useTransaction()
 
-  async function teste() {
-    const testee = await getdByMonth('22')
-    console.log(testee)
-  }
-  async function saveteste() {
-    save({
-      id: Id.New(),
-      description: 'string',
-      value: 1,
-      date: '22/10/2020',
-      type: TransactionType.DESPESA
-    })
-  }
+  // async function teste() {
+  //   const testee = await getdByMonth('22')
+  //   console.log(testee)
+  // }
+  // async function saveteste() {
+  //   save({
+  //     id: Id.New(),
+  //     description: 'string',
+  //     value: 1,
+  //     date: '22/10/2020',
+  //     type: TransactionType.DESPESA
+  //   })
+  // }
   function clear(){
     AsyncStorage.clear()
   }
@@ -57,9 +57,9 @@ export function Home() {
           </Text>
           <View>
             <LoginButton onPress={() => navigation.navigate('finance')} />
-            <LoginButton onPress={teste} />
-            <LoginButton onPress={saveteste} />
-            <LoginButton onPress={clear} />
+            {/* <LoginButton onPress={teste} /> */}
+            {/* <LoginButton onPress={saveteste} /> */}
+            {/* <LoginButton onPress={clear} /> */}
           </View>
         </View>
       </LinearGradient>

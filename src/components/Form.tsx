@@ -10,6 +10,7 @@ import Id from '../utils/Id'
 
 interface Props {
   showMore?: () => void
+  reloadList?: () => void
   id?: string
   description?: string
   value?: number
@@ -128,6 +129,7 @@ export function Form(props: Props) {
             className="text-white text-lg"
             onPress={() => {
               props.showMore?.()
+              props.reloadList?.()
             }}
           >
             Voltar
