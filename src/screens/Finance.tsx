@@ -3,7 +3,8 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  KeyboardAvoidingView
 } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -73,7 +74,7 @@ export function Finance() {
   }
 
   return (
-    <SafeAreaView className="">
+    <SafeAreaView >
       <View
         className={`
         flex flex-row justify-between items-center
@@ -93,7 +94,7 @@ export function Finance() {
         colors={['#3b3b3f', '#232323']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        className="h-full p-4 -mt-8 rounded-t-[36px]"
+        className="p-4 h-full -mt-8 rounded-t-[36px]"
       >
         <View>
           <Text className="text-white text-xl mb-4">Saldo</Text>
@@ -126,7 +127,7 @@ export function Finance() {
                 <Feather name="chevron-right" color="white" size={20} />
               </TouchableOpacity>
             </View>
-            <View className="rounded-xl overflow-hidden border border-gray-500 mt-8">
+            <View className="rounded-xl h-[450px] border border-gray-500 mt-8">
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={stateTrasactions}
