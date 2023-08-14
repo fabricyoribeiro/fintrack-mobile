@@ -17,12 +17,29 @@ import useTransaction from '../hooks/useTransaction'
 import { useIsFocused } from '@react-navigation/native'
 
 export function Finance() {
+  const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ]
+
   const [showForm, setShowForm] = useState(false)
   const [stateTrasactions, setStateTrasactions] = useState()
 
+  const [month, setMonth] = useState(new Date().getMonth())
+
   const [count, setCount] = useState(0)
 
-  const { getAll } = useTransaction()
+  const { getByMonth } = useTransaction()
 
   const isFocused = useIsFocused()
 
@@ -30,7 +47,9 @@ export function Finance() {
     let isActive = true
 
     async function getTransactions() {
-      const result: any = await getAll()
+      const result: any = await getByMonth(String(month + 1))
+      console.log('result')
+      console.log(result)
       if (isActive) {
         setStateTrasactions(result)
       }
@@ -43,14 +62,14 @@ export function Finance() {
     return () => {
       isActive = false
     }
-  }, [isFocused, showForm, count])
+  }, [isFocused, showForm, count, month])
 
   function handleShowForm() {
     setShowForm(false)
   }
 
-  function reload(){
-    setCount(count+1)
+  function reload() {
+    setCount(count + 1)
   }
 
   return (
@@ -78,7 +97,7 @@ export function Finance() {
       >
         <View>
           <Text className="text-white text-xl mb-4">Saldo</Text>
-          <Balance positive />
+          <Balance month={month} count={count} />
         </View>
 
         {showForm ? (
@@ -88,11 +107,22 @@ export function Finance() {
         ) : (
           <View>
             <View className="flex flex-row items-center gap-5 mx-auto mt-4 pr-5 ">
-              <TouchableOpacity className="">
+              <TouchableOpacity
+                className=""
+                onPress={() => {
+                  setMonth(month - 1)
+                }}
+              >
                 <Feather name="chevron-left" color="white" size={20} />
               </TouchableOpacity>
-              <Text className="text-white text-xl">Janeiro de 2023</Text>
-              <TouchableOpacity>
+              <Text className="text-white text-xl">
+                {months[month]} de 2023
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setMonth(month + 1)
+                }}
+              >
                 <Feather name="chevron-right" color="white" size={20} />
               </TouchableOpacity>
             </View>

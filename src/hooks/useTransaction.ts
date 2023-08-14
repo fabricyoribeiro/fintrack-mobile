@@ -1,26 +1,7 @@
-import { useState } from "react";
 import Transaction from "../dtos/Transaction";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TransactionType } from "../dtos/TransactionType";
 
 export default function useTransaction(){
-
-  const [teste, setTransactions] = useState<Transaction[]>([
-    {
-      id: 'string',
-      description: 'string',
-      value: 1,
-      date: '22/22/2020',
-      type: TransactionType.DESPESA
-    },
-    {
-      id: 'dggtgt',
-      description: 'string',
-      value: 1,
-      date: '22/21/2020',
-      type: TransactionType.DESPESA
-    }
-  ])
 
   async function save(transaction: Transaction){
     const transactions: Transaction[]  = await getAll()
@@ -28,7 +9,6 @@ export default function useTransaction(){
     await AsyncStorage.setItem('@transactions', JSON.stringify(transactions))
 
     return true
-
   }
 
   async function update(transaction: Transaction){
@@ -51,18 +31,27 @@ export default function useTransaction(){
     return transactionsParsed || []
   }
 
-  async function getdByMonth(month: string){
+  async function getByMonth(month: string){
     const transactions = await getAll()
-    if(transactions.length === 0) return null
+
+    console.log('transactions')
+    console.log(transactions)
 
     const filteredTransactions = transactions.filter((transaction:Transaction) => {
       const [, _month] = transaction.date.split("/"); // Divide a data em substrings e ignora o dia
-      const formattedMonth = _month.padStart(2, "0")
-      return month === formattedMonth ?? transaction 
+      const formattedMonth = month.padStart(2, "0")
+      console.log(transaction.date)
+      console.log(_month, formattedMonth)
+      if(_month === formattedMonth){
+        console.log('true')
+        return transaction
+      }
     });
 
-    return filteredTransactions
+    console.log('filteredTransactions');
+    console.log(filteredTransactions);
 
+    return filteredTransactions
   }
 
   async function removeById(id:string){
@@ -76,9 +65,7 @@ export default function useTransaction(){
     save,
     update,
     getAll,
-    getdByMonth,
+    getByMonth,
     removeById
   }
-
-
 }

@@ -1,6 +1,5 @@
 import { TouchableOpacity, TouchableOpacityProps, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 interface  LoginButtonProps extends TouchableOpacityProps{}
 
@@ -14,7 +13,6 @@ export function LoginButton({...props}:LoginButtonProps) {
           end={{ x: 1, y: 1 }}
         >
           <View className="flex flex-row items-center px-3 rounded-lg ">
-            {/* <MaterialCommunityIcons name="google" size={24} color="white" /> */}
             <Text className="text-white text-xl p-2">Começar</Text>
           </View>
         </LinearGradient>

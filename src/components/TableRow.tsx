@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Form } from './Form'
 import Transaction from '../dtos/Transaction'
 import { TransactionType } from '../dtos/TransactionType'
+import Money from '../utils/Money'
 
 interface TransactionProps extends Transaction{
   reloadList?: () => void 
@@ -33,7 +34,7 @@ export function TableRow(props: TransactionProps) {
             <Feather name="trending-down" size={28} color="#aa0000" />
           )}
           <Text className="text-white text-lg font-semibold text-right w-[50%] ">{props.date}</Text>
-          <Text className="text-white text-lg font-semibold w-28 text-right ">R${props.value}</Text>
+          <Text className="text-white text-lg font-semibold w-28 text-right ">{Money.format(props.value)}</Text>
         </TouchableOpacity>
       )}
     </View>
