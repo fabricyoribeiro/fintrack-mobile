@@ -3,32 +3,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { LoginButton } from '../components/LoginButton'
 import { Image } from 'expo-image'
 import { useNavigation } from '@react-navigation/native'
-import useTransaction from '../hooks/useTransaction'
-import { TransactionType } from '../dtos/TransactionType'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import Id from '../utils/Id'
+
 
 export function Home() {
   const navigation: any = useNavigation()
-  const { getdByMonth, save } = useTransaction()
-
-  // async function teste() {
-  //   const testee = await getdByMonth('22')
-  //   console.log(testee)
-  // }
-  // async function saveteste() {
-  //   save({
-  //     id: Id.New(),
-  //     description: 'string',
-  //     value: 1,
-  //     date: '22/10/2020',
-  //     type: TransactionType.DESPESA
-  //   })
-  // }
-  function clear(){
-    AsyncStorage.clear()
-  }
-
   return (
     <SafeAreaView className="flex-1">
       <LinearGradient

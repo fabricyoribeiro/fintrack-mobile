@@ -7,15 +7,6 @@ import useTransaction from '../hooks/useTransaction'
 const Stack = createNativeStackNavigator()
 
 export function AppRoutes() {
-  // const [teste, setTeste] = useState(false)
-
-  // const { getAll } = useTransaction()
-
-  // const transactions: any = () => {
-  //   console.log(getAll())
-  //   console.log(getAll())
-  //   return getAll()
-  // }
 
   return (
     <Stack.Navigator>
